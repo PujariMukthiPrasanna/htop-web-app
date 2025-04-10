@@ -12,10 +12,8 @@ def home():
 
 @app.route('/htop')
 def htop():
-    # Get name (using environment variable which will be available in GitHub Codespace)
-    name = "Pujari Mukthi Prasanna"  # Replace with your actual name
+    name = "Pujari Mukthi Prasanna" 
     
-    # Get username (system username)
     username = os.getenv('USER', os.getenv('ASUS', 'codespace'))
     
     # Get server time in IST
@@ -23,7 +21,6 @@ def htop():
     server_time_ist = datetime.datetime.now(ist_timezone)
     server_time_str = server_time_ist.strftime('%Y-%m-%d %H:%M:%S.%f')
     
-    # Get top command output
     try:
         top_output = subprocess.check_output(
             ['top', '-b', '-n', '1'], 
@@ -35,7 +32,6 @@ def htop():
     except FileNotFoundError:
         top_output = "top command not found"
     
-    # Return the information as a simple HTML page
     html_content = f"""
     <!DOCTYPE html>
     <html>
@@ -59,7 +55,5 @@ def htop():
     return html_content
 
 if __name__ == '__main__':
-    # Get the port from the environment or use 5000 as default
     port = int(os.environ.get('PORT', 5000))
-    # Start the server with the host set to 0.0.0.0 to make it publicly accessible
     app.run(host='0.0.0.0', port=port)
